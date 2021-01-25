@@ -1,12 +1,12 @@
-# import os
-# import pickle
-# import pandas as pd
-# import sys
-# import numpy
-# from sklearn.linear_model import LinearRegression
-# from flask import Flask, request, jsonify
+import os
+import pickle
+import pandas as pd
+import sys
+import numpy
+from sklearn.linear_model import LinearRegression
+from flask import Flask, request, jsonify
 # # from flask_cors import CORS, cross_origin
-# import json
+import json
 
 # def create_app(test_config=None):
 #     # create and configure the app
@@ -61,7 +61,6 @@
 
 
 # app.py
-from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 @app.route('/getmsg/', methods=['GET'])
@@ -87,21 +86,38 @@ def respond():
     # Return the response in json format
     return jsonify(response)
 
-@app.route('/post/', methods=['POST'])
-def post_something():
-    param = request.form.get('name')
-    print(param)
-    # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
-    if param:
-        return jsonify({
-            "Message": f"Welcome {name} to our awesome platform!!",
-            # Add this option to distinct the POST request
-            "METHOD" : "POST"
-        })
-    else:
-        return jsonify({
-            "ERROR": "no name found, please send a name."
-        })
+@app.route('/hello/', methods=['POST'])
+def hello():
+    jsdata = request.get_json()
+    print(jsdata)
+
+    y = []
+
+    y = []
+    for item in jsdata:
+        y.append(int(jsdata[item]))
+
+    array = numpy.array(y)
+    array = numpy.reshape(array, (1, 8))
+
+    loaded_model = pickle.load(open('saved_lin_reg.sav', 'rb'))
+    result = loaded_model.predict(array)
+
+    return jsonify(result.tolist())
+# def post_something():
+#     param = request.form.get('name')
+#     print(param)
+#     # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
+#     if param:
+#         return jsonify({
+#             "Message": f"Welcome {name} to our awesome platform!!",
+#             # Add this option to distinct the POST request
+#             "METHOD" : "POST"
+#         })
+#     else:
+#         return jsonify({
+#             "ERROR": "no name found, please send a name."
+#         })
 
 # A welcome message to test our server
 @app.route('/')
