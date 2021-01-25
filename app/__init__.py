@@ -8,7 +8,6 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 import json
 
-
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -51,7 +50,12 @@ def create_app(test_config=None):
 
         loaded_model = pickle.load(open('app/saved_lin_reg.sav', 'rb'))
         result = loaded_model.predict(array)
+
+        
      
         return jsonify(result.tolist())
+
+
+    
 
     return app
