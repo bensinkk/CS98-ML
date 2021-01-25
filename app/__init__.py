@@ -11,7 +11,7 @@ import json
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    cors = CORS(app)
+    CORS(app)
     app.config['CORS_HEADERS'] = 'Content-Type'
     app.config.from_mapping(
         SECRET_KEY='dev',
@@ -33,7 +33,6 @@ def create_app(test_config=None):
 
     # a simple page that says hello
     @app.route('/hello', methods=['POST'])
-    @cross_origin() 
     def hello():
         jsdata = request.get_json()
         print(jsdata)
