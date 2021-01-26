@@ -24,7 +24,7 @@ def hello():
         y.append(int(jsdata[item]))
 
     array = numpy.array(y)
-    array = numpy.reshape(array, (1, 8))
+    array = numpy.reshape(array, (1, 7))
 
     loaded_model = pickle.load(open('saved_lin_reg.sav', 'rb'))
     result = loaded_model.predict(array)
