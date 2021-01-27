@@ -26,7 +26,7 @@ def hello():
     array = numpy.array(y)
     array = numpy.reshape(array, (1, 8))
 
-    loaded_model = pickle.load(open('saved_lin_reg.sav', 'rb'))
+    loaded_model = pickle.load(open('lin_reg_pickle', 'rb'))
     result = loaded_model.predict(array)
 
     return jsonify(result.tolist())
